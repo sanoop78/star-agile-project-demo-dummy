@@ -55,11 +55,6 @@
 
 
     <dependencies>
-	  <dependency>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-war-plugin</artifactId>
-    <version>2.6</version>
-</dependency> 
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-compatibility-server</artifactId>
@@ -164,7 +159,6 @@
 
     <build>
         <plugins>
-		
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -174,23 +168,27 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-		<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-war-plugin</artifactId>
-  <version>2.6</version>
-</plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.2.3.v20140905</version>
             </plugin>
 			
-			<plugin>
+						<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.19.1</version>
 				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
+					<parallel>methods</parallel>
+					<threadCount>10</threadCount>
+					<includes>
+						<include>**/Test*.java</include>
+						<include>**/Test.java</include>
+						<include>**/TestCase.java</include>
+					</includes>
+					<excludes>
+						<exclude>**/*Abstract*Test.java</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 
@@ -243,7 +241,7 @@
                         <artifactId>maven-pmd-plugin</artifactId>
                         <version>3.2</version>
                         <configuration>
-                            <targetJdk>17</targetJdk>
+                            <targetJdk>1.8</targetJdk>
                             <aggregate>true</aggregate>
                             <format>xml</format>
                             <!-- CPD options -->
@@ -253,12 +251,6 @@
                             <failurePriority>2</failurePriority>
                         </configuration>
                     </plugin>
-			<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-war-plugin</artifactId>
-  <version>3.2.3</version>
-</plugin>
-
 
                     <!-- FINDBUGS -->
                     <plugin>
@@ -327,7 +319,7 @@
                                     <artifactId>maven-pmd-plugin</artifactId>
                                     <version>3.2</version>
                                     <configuration>
-                                        <targetJdk>17</targetJdk>
+                                        <targetJdk>1.8</targetJdk>
                                         <aggregate>true</aggregate>
                                         <format>xml</format>
                                         <rulesets>
@@ -441,7 +433,7 @@
                         <artifactId>maven-pmd-plugin</artifactId>
                         <version>2.5</version>
                         <configuration>
-                            <targetJdk>17</targetJdk>
+                            <targetJdk>1.8</targetJdk>
                             <aggregate>true</aggregate>
                             <format>xml</format>
                             <rulesets>
